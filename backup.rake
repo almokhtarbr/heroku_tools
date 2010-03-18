@@ -30,7 +30,7 @@ namespace :backups do
     backup_name =  "hnj_#{Time.now.to_s(:number)}.sql"
     backup_path = "tmp/#{backup_name}"
     
-    `echo #{DB_CONFIG['password']} | pg_dump --username=#{DB_CONFIG['username']} --host=#{DB_CONFIG['host']} > #{backup_path}`
+    `echo #{DB_CONFIG['password']} | pg_dump -Fc --username=#{DB_CONFIG['username']} --host=#{DB_CONFIG['host']} > #{backup_path}`
   
     puts "gzipping sql file..."
     `gzip #{backup_path}`
