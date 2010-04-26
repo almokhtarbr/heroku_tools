@@ -27,7 +27,7 @@ namespace :backups do
 
     puts "dumping sql file.."
 
-    backup_name =  "hnj_#{Time.now.to_s(:number)}.sql"
+    backup_name =  "#{APP_NAME}_#{Time.now.to_s(:number)}.sql"
     backup_path = "tmp/#{backup_name}"
     
     `echo #{DB_CONFIG['password']} | pg_dump -Fc --username=#{DB_CONFIG['username']} --host=#{DB_CONFIG['host']} > #{backup_path}`
