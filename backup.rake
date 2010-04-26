@@ -51,7 +51,7 @@ namespace :backups do
       bucket = AWS::S3::Bucket.find(BACKUP_BUCKET)
     end
 
-    AWS::S3::S3Object.store(backup_name, File.read(backup_path), bucket.name, :content_type => 'application/x-gzip')
+    AWS::S3::S3Object.store(backup_name, File.open(backup_path,"r"), bucket.name, :content_type => 'application/x-gzip')
     `rm -rf #{backup_path}`
     puts "backup completed @ #{Time.now}"
   end
