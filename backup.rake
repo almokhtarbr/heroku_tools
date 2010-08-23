@@ -1,4 +1,5 @@
 require 'yaml'
+require 'aws/s3'
 
 # Heroku SQL to S3 Database backup task
 #   by Derek Perez (March 15th, 2010), inspiration from Nick Merwin (Lemur Heavy Industries) 
@@ -11,7 +12,7 @@ require 'yaml'
 #
 # Usage:
 #    heroku rake backups:backup
-#    * or add this to your cron.rake for hourly or nightly backups:
+#    * or add this to your cron.rake for hourly or nightly backups (ie, lib/tasks/cron.rake):
 #    Rake::Task['backups:backup'].invoke
 
 namespace :backups do
@@ -19,8 +20,8 @@ namespace :backups do
   desc "backup db from heroku and send to S3"
   task :backup => :environment do
 
-    APP_NAME = 'hnj' # put your app name here
-    BACKUP_BUCKET = 'hnj-db-backups' # put your backup bucket name here
+    APP_NAME = 'heroku-app-name' # put your app name here
+    BACKUP_BUCKET = 'heroku-app-name-db-backups' # put your backup bucket name here
     DB_CONFIG = YAML::load(ERB.new(IO.read(File.join(RAILS_ROOT, 'config', 'database.yml'))).result)[RAILS_ENV]
 
     puts "backup started @ #{Time.now}"

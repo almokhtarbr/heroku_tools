@@ -3,3 +3,14 @@ Derek's Heroku Tools!
 Whats here?
 
 - backup.rake - Really simple backup rake task that extracts raw postgresql dumps and can send them to S3 for you! Works great with Heroku cron!
+
+Setup:
+1) replace APP_NAME and BACKUP_BUCKET with your info
+2) heroku config:add S3_KEY=YOURKEY S3_SECRET=YOURSECRET
+3) add aws-s3 to your .gems
+
+Usage:
+  heroku rake backups:backup
+
+  * or add this to your cron.rake for hourly or nightly backups (ie, lib/tasks/cron.rake):
+  Rake::Task['backups:backup'].invoke
